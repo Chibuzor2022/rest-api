@@ -1,20 +1,18 @@
-// server.js
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import User from "./models/User.js";
-import path from "path";
 
 // Configure environment variables
 dotenv.config({ path: "./config/.env" });
 
-// Initialize app
+// Initializing the  app
 const app = express();
 
 // Middleware to parse JSON
 app.use(express.json());
 
-// Connect to MongoDB
+// Connecting to MongoDB
 mongoose
 	.connect(process.env.MONGO_URI, {
 		useNewUrlParser: true,
@@ -25,7 +23,7 @@ mongoose
 
 // ROUTES
 
-// @GET - Get all users
+// @GET - Getting all users
 app.get("/users", async (req, res) => {
 	try {
 		const users = await User.find(); // Fetch all users
@@ -35,7 +33,7 @@ app.get("/users", async (req, res) => {
 	}
 });
 
-// @POST - Create a new user
+// @POST - To create a new user
 app.post("/users", async (req, res) => {
 	const { name, email, age } = req.body;
 	try {
@@ -47,7 +45,7 @@ app.post("/users", async (req, res) => {
 	}
 });
 
-// @PUT - Update user by ID
+// @PUT - To update user by ID
 app.put("/users/:id", async (req, res) => {
 	const { id } = req.params;
 	try {
@@ -62,7 +60,7 @@ app.put("/users/:id", async (req, res) => {
 	}
 });
 
-// @DELETE - Delete user by ID
+// @DELETE -To delete user by ID
 app.delete("/users/:id", async (req, res) => {
 	const { id } = req.params;
 	try {
@@ -75,7 +73,7 @@ app.delete("/users/:id", async (req, res) => {
 	}
 });
 
-// Start the server
+//To start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
